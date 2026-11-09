@@ -1,0 +1,22 @@
+name: Sync
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+  schedule:
+    # 一覧は 5 月の暫定版の後、夏の更新と 12 月ごろの確定版で差し替わる。毎月 10 日 04:00 JST に取る
+    - cron: "0 19 9 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    uses: queria-io/dataset-shared/.github/workflows/sync.yml@main
+    with:
+      dataset_name: mext
+    secrets: inherit

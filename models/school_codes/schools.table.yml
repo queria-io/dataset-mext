@@ -1,0 +1,64 @@
+schema: school_codes
+name: schools
+title: 学校コード一覧
+description: |-
+  文部科学省の学校コード一覧です。1 行が 1 学校コードで、廃止した学校も含みます。
+
+  - 学校コードは 13 桁で、学校種（2 桁）・都道府県番号（2 桁）・設置区分（1 桁）・学校番号（7 桁）・検査数字（1 桁）からなります
+  - 一度設定した学校コードは変えず、廃止しても他の学校に使いません。学校種・都道府県・設置区分が変わったときは新しいコードになり、successor_school_codes に移行後のコードが入ります
+  - 現存する学校は is_active で判定できます
+  - as_of_date が一覧の基準日（毎年 5 月 1 日）です。is_final が false の間は暫定版で、その年の 12 月ごろに確定版に置き換わります
+primary_key: [school_code]
+sources:
+  - path: https://www.mext.go.jp/b_menu/toukei/mext_01087.html
+fields:
+  - name: school_code
+    title: 学校コード
+    description: 13 桁。先頭 2 桁が学校種、続く 2 桁が都道府県番号、次の 1 桁が設置区分、末尾 1 桁が検査数字
+  - name: school_type_code
+    title: 学校種コード
+    description: A1=幼稚園、A2=幼保連携型認定こども園、B1=小学校、C1=中学校、C2=義務教育学校、D1=高等学校、D2=中等教育学校、E1=特別支援学校、F1=大学、F2=短期大学、G1=高等専門学校、H1=専修学校、H2=各種学校
+  - name: school_type_name
+    title: 学校種
+  - name: school_type_label
+    title: 学校種（一覧の略称）
+    description: 一覧に書かれた略称。特別支援学校は 養護・特支聾・特支盲 に分かれる
+  - name: prefecture_code
+    title: 都道府県コード
+    description: 2 桁（JIS X 0401）。学校コードの都道府県番号
+    annotations: { queria: { semantic: { role: entity, name: prefecture } } }
+  - name: establishment
+    title: 設置区分
+    description: national（国立）・public（公立）・private（私立）
+  - name: campus
+    title: 本分校
+    description: main（本校）・branch（分校）・closed（廃止）
+  - name: name
+    title: 学校名
+  - name: address
+    title: 学校所在地
+  - name: postal_code
+    title: 郵便番号
+    description: 7 桁。一覧の値が 7 桁の数字でない行は NULL
+    annotations: { queria: { semantic: { role: entity, name: postal_code } } }
+  - name: valid_from
+    title: 属性情報設定年月日
+    description: 学校コードと属性情報を設定した日。制度開始時に設定した学校は 2020-12-22（大学・短期大学・高等専門学校は 2021-01-20）
+  - name: valid_to
+    title: 属性情報廃止年月日
+    description: 学校の廃止や学校コードの変更で、この学校コードを使わなくなった日
+  - name: is_active
+    title: 現存
+    description: 属性情報廃止年月日が無ければ true
+  - name: previous_survey_number
+    title: 旧学校調査番号
+    description: 学校コードを設定する前に学校基本調査などで使っていた番号
+  - name: successor_school_codes
+    title: 移行後の学校コード
+    description: 統合・学校種の変更などで移った先の学校コード。分割・統合で複数になることがある
+  - name: as_of_date
+    title: 基準日
+    description: 学校コード一覧の基準日（毎年 5 月 1 日）
+  - name: is_final
+    title: 確定版
+    description: 一覧が確定版なら true、暫定版なら false

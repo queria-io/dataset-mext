@@ -1,0 +1,16 @@
+name: "mext"
+version: "1.0.0"
+
+profile: "mext"
+
+model-paths: ["models"]
+macro-paths: ["shared/macros"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  mext:
+    +database: mext
+    +materialized: table
