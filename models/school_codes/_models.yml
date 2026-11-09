@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: schools
+    columns:
+      - name: school_code
+        data_tests: [unique, not_null]
+      - name: school_type_code
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [A1, A2, B1, C1, C2, D1, D2, E1, F1, F2, G1, H1, H2]
+      - name: prefecture_code
+        data_tests: [not_null]
+      - name: establishment
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [national, public, private]
+      - name: campus
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [main, branch, closed]
+      - name: name
+        data_tests: [not_null]
+      - name: valid_from
+        data_tests: [not_null]
+      - name: as_of_date
+        data_tests: [not_null]

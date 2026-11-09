@@ -1,0 +1,50 @@
+# この dataset.yml は fdl commit が読む（FDL の dataset.json を YAML で書いたもの）。
+# 表の説明は models/ の *.table.yml に書く。表と列の型・NULL・行数は fdl commit がカタログから埋める。
+name: mext
+title: 文部科学省
+description: |-
+  文部科学省が公開するデータです。今は学校コードを収録しています。
+
+  学校コード（school_codes）は、文部科学省が全国の学校に設定した 13 桁の学校コードと、学校種・都道府県・設置区分・学校名・所在地・郵便番号・設定年月日・廃止年月日の一覧です。幼稚園・幼保連携型認定こども園から小学校・中学校・高等学校・特別支援学校・大学・短期大学・高等専門学校・専修学校・各種学校までを含みます。廃止した学校と、統合・分割の後の学校コードも収録します。毎月、文部科学省が公開している最新の一覧を取得します。
+
+  出典：文部科学省 学校コード（文部科学省）（https://www.mext.go.jp/b_menu/toukei/mext_01087.html）を加工して作成
+keywords:
+  - 学校コード
+  - 学校
+  - 小学校
+  - 中学校
+  - 高等学校
+  - 大学
+  - 幼稚園
+  - 認定こども園
+  - 専修学校
+  - 文部科学省
+  - 文科省
+homepage: https://github.com/queria-io/dataset-mext
+language: ja
+
+licenses:
+  - JP-PDL-1.0
+
+sources:
+  - title: 文部科学省 学校コード
+    path: https://www.mext.go.jp/b_menu/toukei/mext_01087.html
+  - title: 学校コードの取り扱いについて
+    path: https://www.mext.go.jp/content/20210128-mxt_chousa01-000011635_01.pdf
+
+contributors:
+  - title: 文部科学省
+    path: https://www.mext.go.jp/
+    roles: [rightsHolder]
+
+spatial_coverage: [JP]
+update_frequency: monthly
+
+schemas:
+  - name: school_codes
+    title: 学校コード
+
+annotations:
+  queria:
+    themes: [education_culture]
+    cover: 🏫
