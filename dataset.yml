@@ -3,7 +3,7 @@
 name: mext
 title: 文部科学省
 description: |-
-  文部科学省が公開するデータです。今は学校コードを収録しています。
+  文部科学省が公開するデータです。今は学校コードを収録しています。行政事業レビューのシートが関係する計画・通知等として挙げる文部科学省のサイトの PDF も、ページごとの本文を持ちます。
 
   学校コード（school_codes）は、文部科学省が全国の学校に設定した 13 桁の学校コードと、学校種・都道府県・設置区分・学校名・所在地・郵便番号・設定年月日・廃止年月日の一覧です。幼稚園・幼保連携型認定こども園から小学校・中学校・高等学校・特別支援学校・大学・短期大学・高等専門学校・専修学校・各種学校までを含みます。廃止した学校と、統合・分割の後の学校コードも収録します。毎月、文部科学省が公開している最新の一覧を取得します。
 
@@ -20,6 +20,8 @@ keywords:
   - 専修学校
   - 文部科学省
   - 文科省
+  - 行政事業レビュー
+  - 計画・通知等
 homepage: https://github.com/queria-io/dataset-mext
 language: ja
 
@@ -27,6 +29,8 @@ licenses:
   - JP-PDL-1.0
 
 sources:
+  - title: 行政事業レビュー見える化サイト（行政改革推進本部事務局）
+    path: https://rssystem.go.jp
   - title: 文部科学省 学校コード
     path: https://www.mext.go.jp/b_menu/toukei/mext_01087.html
   - title: 学校コードの取り扱いについて
@@ -41,6 +45,8 @@ spatial_coverage: [JP]
 update_frequency: monthly
 
 schemas:
+  - name: plans
+    title: 計画・通知等
   - name: school_codes
     title: 学校コード
 
