@@ -14,3 +14,10 @@ models:
   mext:
     +database: mext
     +materialized: table
+    school_codes:
+      raw:
+        +materialized: table
+      stg:
+        +materialized: view
+      mart:
+        +materialized: table
