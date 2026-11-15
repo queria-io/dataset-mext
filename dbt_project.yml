@@ -14,3 +14,10 @@ models:
   mext:
     +database: mext
     +materialized: table
+    plans:
+      raw:
+        +materialized: table
+      stg:
+        +materialized: view
+      mart:
+        +materialized: table
