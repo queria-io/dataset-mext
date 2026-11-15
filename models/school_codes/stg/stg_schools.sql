@@ -1,39 +1,13 @@
 {# 学校コード一覧 (data/school_codes/*.csv) を型付けする。1 行が 1 学校コード。
-   CSV の 1 行目は表題と更新日、2 行目が見出しなので飛ばす。
    区分の列は「A1(幼稚園)」のようにコードと略称が並ぶので、括弧の前をコードとして取る #}
 
-with source as (
-    select *
-    from read_csv(
-        'data/school_codes/*.csv',
-        header = false,
-        skip = 2,
-        quote = '"',
-        filename = true,
-        columns = {
-            'school_code': 'VARCHAR',
-            'school_type': 'VARCHAR',
-            'prefecture': 'VARCHAR',
-            'establishment': 'VARCHAR',
-            'campus': 'VARCHAR',
-            'name': 'VARCHAR',
-            'address': 'VARCHAR',
-            'postal_code': 'VARCHAR',
-            'valid_from': 'VARCHAR',
-            'valid_to': 'VARCHAR',
-            'previous_survey_number': 'VARCHAR',
-            'successor_school_code': 'VARCHAR'
-        }
-    )
-),
-
-file as (
+with file as (
     -- ファイル名は <基準日>_<provisional|final>_<連番>.csv
     select
         *,
         cast(strptime(split_part(parse_filename(filename), '_', 1), '%Y%m%d') as date) as as_of_date,
         split_part(parse_filename(filename), '_', 2) = 'final' as is_final
-    from source
+    from {{ ref('raw_schools') }}
 )
 
 select
