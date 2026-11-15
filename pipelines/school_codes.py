@@ -4,7 +4,9 @@
 (幼稚園〜各種学校の東日本・西日本と、大学・短期大学・高等専門学校)。
 ファイルの URL は公開のたびに変わるので、ページからリンクを読み取る。
 
-出力: data/school_codes/<基準日>_<provisional|final>_<連番>.csv
+出力:
+- data/school_codes/<基準日>_<provisional|final>_<連番>.csv（取得したまま）
+- data/school_codes/source_file.parquet（取得の記録）
 
 データソース: 文部科学省 学校コード
 https://www.mext.go.jp/b_menu/toukei/mext_01087.html
@@ -15,7 +17,8 @@ import re
 import shutil
 from pathlib import Path
 
-from shared.fetch import fetch
+from pipelines.source_file import write_source_files
+from shared.fetch import fetch, fetch_file
 
 logger = logging.getLogger("pipelines")
 
@@ -52,11 +55,16 @@ def download_school_codes() -> None:
     partial = OUTPUT.with_name(OUTPUT.name + ".part")
     shutil.rmtree(partial, ignore_errors=True)
     partial.mkdir(parents=True)
-    for number, url in enumerate(urls, start=1):
-        body = fetch(url, user_agent=USER_AGENT).decode("utf-8-sig")
-        if HEADER not in body.splitlines()[1]:
+    def one(number: int, url: str) -> dict:
+        name = f"{label}_{number}.csv"
+        source = fetch_file(url, partial / name, user_agent=USER_AGENT)
+        lines = (partial / name).read_text(encoding="utf-8-sig").splitlines()
+        if HEADER not in lines[1]:
             raise SystemExit(f"見出しの行が想定と違う: {url}")
-        (partial / f"{label}_{number}.csv").write_text(body, encoding="utf-8")
         logger.info("  %s", url)
+        return {**source, "page_url": PAGE, "paths": [str(OUTPUT / name)]}
+
+    sources = [one(number, url) for number, url in enumerate(urls, start=1)]
+    write_source_files(sources, partial / "source_file.parquet")
     shutil.rmtree(OUTPUT, ignore_errors=True)
     partial.rename(OUTPUT)

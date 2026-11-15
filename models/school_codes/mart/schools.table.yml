@@ -62,3 +62,6 @@ fields:
   - name: is_final
     title: 確定版
     description: 一覧が確定版なら true、暫定版なら false
+  - name: source_sha256
+    title: 元のファイルの SHA-256
+    description: この行を読んだファイルの SHA-256 です。source_file の sha256 に当たります

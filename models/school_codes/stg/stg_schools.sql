@@ -56,5 +56,6 @@ select
     -- 統合・分割で複数になると、読点やカンマ、改行で区切って並ぶ
     nullif(regexp_extract_all(successor_school_code, '[A-H][0-9]{12}'), []) as successor_school_codes,
     as_of_date,
-    is_final
+    is_final,
+    filename as source_path
 from file
