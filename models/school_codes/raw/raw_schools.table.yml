@@ -1,4 +1,0 @@
-schema: school_codes
-name: raw_schools
-description: 学校コード一覧（取得したままの CSV、全列が文字列）
-annotations: { queria: { published: false } }
