@@ -1,5 +1,6 @@
-schema: school_codes
-name: schools
+---
+$schema: https://queria.io/schemas/table/v1.json
+table: school_codes.schools
 title: 学校コード一覧
 description: |-
   文部科学省の学校コード一覧です。1 行が 1 学校コードで、廃止した学校も含みます。
@@ -26,7 +27,7 @@ fields:
   - name: prefecture_code
     title: 都道府県コード
     description: 2 桁（JIS X 0401）。学校コードの都道府県番号
-    annotations: { queria: { semantic: { role: entity, name: prefecture } } }
+    semantic: {role: entity, name: prefecture}
   - name: establishment
     title: 設置区分
     description: national（国立）・public（公立）・private（私立）
@@ -40,7 +41,7 @@ fields:
   - name: postal_code
     title: 郵便番号
     description: 7 桁。一覧の値が 7 桁の数字でない行は NULL
-    annotations: { queria: { semantic: { role: entity, name: postal_code } } }
+    semantic: {role: entity, name: postal_code}
   - name: valid_from
     title: 属性情報設定年月日
     description: 学校コードと属性情報を設定した日。制度開始時に設定した学校は 2020-12-22（大学・短期大学・高等専門学校は 2021-01-20）
@@ -65,3 +66,4 @@ fields:
   - name: source_sha256
     title: 元のファイルの SHA-256
     description: この行を読んだファイルの SHA-256 です。source_file の sha256 に当たります
+---
