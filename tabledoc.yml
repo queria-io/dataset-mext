@@ -30,18 +30,18 @@ licenses:
 sources:
   - id: rssystem
     title: 行政事業レビュー見える化サイト（行政改革推進本部事務局）
-    path: https://rssystem.go.jp
+    url: https://rssystem.go.jp
   - id: mext_01087
     title: 文部科学省 学校コード
-    path: https://www.mext.go.jp/b_menu/toukei/mext_01087.html
+    url: https://www.mext.go.jp/b_menu/toukei/mext_01087.html
   - id: 20210128-mxt_chousa01-000011635_01
     title: 学校コードの取り扱いについて
-    path: https://www.mext.go.jp/content/20210128-mxt_chousa01-000011635_01.pdf
+    url: https://www.mext.go.jp/content/20210128-mxt_chousa01-000011635_01.pdf
 
 contributors:
   - id: mext
     title: 文部科学省
-    path: https://www.mext.go.jp/
+    url: https://www.mext.go.jp/
     roles: [rightsHolder]
 
 spatial_coverage: [JP]
