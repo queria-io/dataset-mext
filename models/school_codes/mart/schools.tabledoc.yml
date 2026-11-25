@@ -16,8 +16,10 @@ columns:
   - name: school_type_code
     title: 学校種コード
     description: A1=幼稚園、A2=幼保連携型認定こども園、B1=小学校、C1=中学校、C2=義務教育学校、D1=高等学校、D2=中等教育学校、E1=特別支援学校、F1=大学、F2=短期大学、G1=高等専門学校、H1=専修学校、H2=各種学校
+    dimension: categorical
   - name: school_type_name
     title: 学校種
+    dimension: categorical
   - name: school_type_label
     title: 学校種（一覧の略称）
     description: 一覧に書かれた略称。特別支援学校は 養護・特支聾・特支盲 に分かれる
@@ -28,6 +30,7 @@ columns:
   - name: establishment
     title: 設置区分
     description: national（国立）・public（公立）・private（私立）
+    dimension: categorical
   - name: campus
     title: 本分校
     description: main（本校）・branch（分校）・closed（廃止）
