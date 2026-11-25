@@ -34,6 +34,7 @@ columns:
   - name: campus
     title: 本分校
     description: main（本校）・branch（分校）・closed（廃止）
+    dimension: categorical
   - name: name
     title: 学校名
   - name: address
